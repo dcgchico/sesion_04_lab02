@@ -9,7 +9,7 @@
       - devops
       - everis
   
-  - tasks:
+  tasks:
     - name: "Instalar servicios"
       yum:
         name: "{{ item }}"
