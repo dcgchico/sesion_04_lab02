@@ -29,15 +29,31 @@
         state: present
       loop: "{{ grupos_sistema }}"
 
-    - name: "Crear los usuarios"
+    - name: "Crear el usuario administrador"
       user:
-        name: "{{ item.key }}"
-        group: "{{ item.value.grupo }}"
-        uid: "{{ item.value.uid }}"
-        generate_ssh_key: "{{ item.value.generar_key }}"
-        ssh_key_file: "{{ item.value.ruta_key }}"
-        expires: "{{ item.value.expira }}"
-      loop: "{{ usuarios|dict2items }}"
+        name: administrador
+        groups: "{{ usuarios['administrador']['grupo'] }}"
+        generate_ssh_key: "{{ usuarios['administrador']['generar_key'] }}"
+        ssh_key_bits: 2048
+        ssh_key_file: "{{ usuarios['administrador']['ruta_key'] }}"
+        expires: "{{ usuarios['administrador']['expira'] }}"
+
+      - name: "Creacion del usuario everis_prueba"
+      user:
+        name: everis_prueba
+        groups: "{{ usuarios['everis_prueba']['grupo'] }}"
+        generate_ssh_key: "{{ usuarios['everis_prueba']['generar_key'] }}"
+        uid: "{{ usuarios['everis_prueba']['identificador'] }}"
+        expires: "{{ usuarios['everis_prueba']['expira'] }}"
+
+    - name: "Creacion usuario dchico"
+      user:
+        name: dchico            
+        groups: "{{ usuarios['dchico']['grupo'] }}"   
+        generate_ssh_key: "{{ usuarios['dchico']['generar_key'] }}"
+        ssh_key_bits: 2048
+        ssh_key_file: "{{ usuarios['dchico']['ruta_key'] }}"        
+        expires: "{{ usuarios['dchico']['expira'] }}"
 
     - name: "Reiniciar los servicios"
       systemd:
