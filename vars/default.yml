@@ -16,7 +16,7 @@
       generar_key: no
       uid: 1212
       expira: 12407987
-    nuestro:
+    dchico:
       grupo: ctic, devops
       generar_key: yes
       ruta_key: ".ssh/id_rsa"
